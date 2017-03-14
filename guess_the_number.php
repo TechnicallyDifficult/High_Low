@@ -21,8 +21,8 @@ if ($argc > 1) {
 
 if ($argc > 2) {
 	$max = $argv[2];
-	while (!is_numeric($max) and $max !== '') {
-		fwrite(STDOUT, PHP_EOL . 'MAX VALUE ERROR -- NEED NUMBER' . PHP_EOL);
+	while ($max !== '' and (!is_numeric($max) or $max < $min)) {
+		fwrite(STDOUT, PHP_EOL . 'MAX VALUE ERROR -- ' . (!is_numeric($max) ? 'NEED NUMBER' : 'MAX LOWER THAN MIN') . PHP_EOL);
 		fwrite(STDOUT, 'PLEASE PROVIDE OR LEAVE BLANK TO USE DEFAULT' . PHP_EOL);
 		$max = trim(fgets(STDIN));
 	}
@@ -35,7 +35,7 @@ if ($argc > 2) {
 		$max = (int) $max;
 	}
 } else {
-	$max = 100;
+	$max = $min + 99;
 }
 
 fwrite(STDOUT, PHP_EOL . "I'M THINKING..." . PHP_EOL);
@@ -77,7 +77,7 @@ if ($guessesTaken < $maxGuesses) {
 	$guessesTaken++;
 	fwrite(STDOUT, "TOOK YOU $guessesTaken GUESSES" . PHP_EOL);
 } else {
-	fwrite(STDOUT, 'SORRY. NO MORE GUESSES' . PHP_EOL);
+	fwrite(STDOUT, PHP_EOL . 'SORRY. NO MORE GUESSES' . PHP_EOL);
 	fwrite(STDOUT, "NUMBER WAS $number" . PHP_EOL);
 }
 
