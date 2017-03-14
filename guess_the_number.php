@@ -11,18 +11,27 @@ fwrite(STDOUT, 'OK!' . PHP_EOL . PHP_EOL);
 fwrite(STDOUT, "A NUMBER BETWEEN $min AND $max" . PHP_EOL);
 fwrite(STDOUT, "$maxGuesses GUESSES" . PHP_EOL . PHP_EOL);
 
-for ($guessesTaken = 0; $guessesTaken < $maxGuesses; $guessesTaken++) {
+for ($guessesTaken = 0; $guessesTaken < $maxGuesses;) {
 	fwrite(STDOUT, 'GUESS?' . PHP_EOL);
 
 	$response = trim(fgets(STDIN));
-	
-	if ((int) $response == $number) {
-		fwrite(STDOUT, PHP_EOL . 'GOOD GUESS!' . PHP_EOL);
-		break;
-	} elseif ($response < $number and $guessesTaken < $maxGuesses) {
-		fwrite(STDOUT, PHP_EOL . 'HIGHER' . PHP_EOL);
-	} elseif ($response > $number and $guessesTaken < $maxGuesses) {
-		fwrite(STDOUT, PHP_EOL . 'LOWER' . PHP_EOL);
+
+	if (!is_numeric($response)) {
+		fwrite(STDOUT, PHP_EOL . 'NUMBERS ONLY' . PHP_EOL);
+	} else {
+		if ((int) $response != (double) $response) {
+			fwrite(STDOUT, PHP_EOL . 'FLOAT ACCEPTED -- ROUNDING DOWN');
+			$response = (int) $response;
+		}
+		if ($response == $number) {
+			fwrite(STDOUT, PHP_EOL . 'GOOD GUESS!' . PHP_EOL);
+			break;
+		} elseif ($response < $number and $guessesTaken < $maxGuesses) {
+			fwrite(STDOUT, PHP_EOL . 'HIGHER' . PHP_EOL);
+		} elseif ($response > $number and $guessesTaken < $maxGuesses) {
+			fwrite(STDOUT, PHP_EOL . 'LOWER' . PHP_EOL);
+		}
+		$guessesTaken++;
 	}
 }
 
