@@ -14,9 +14,9 @@ for ($guessesTaken = 0; $guessesTaken < 6; $guessesTaken++) {
 	if ((int) $response == $number) {
 		fwrite(STDOUT, 'GOOD GUESS!' . PHP_EOL);
 		break;
-	} elseif ($response < $number) {
+	} elseif ($response < $number and $guessesTaken < 5) {
 		fwrite(STDOUT, 'HIGHER' . PHP_EOL);
-	} elseif ($response > $number) {
+	} elseif ($response > $number and $guessesTaken < 5) {
 		fwrite(STDOUT, 'LOWER' . PHP_EOL);
 	}
 }
