@@ -2,7 +2,7 @@
 
 fwrite(STDOUT, "I'M THINKING..." . PHP_EOL);
 
-$number = rand(1, 100);
+$number = mt_rand(1, 100);
 
 fwrite(STDOUT, 'OK!' . PHP_EOL);
 fwrite(STDOUT, 'A NUMBER BETWEEN 1 AND 100.' . PHP_EOL);
