@@ -1,9 +1,45 @@
 <?php
 
+if ($argc > 1) {
+	$min = $argv[1];
+	while (!is_numeric($min) and $min !== '') {
+		fwrite(STDOUT, PHP_EOL . 'MIN VALUE ERROR -- NEED NUMBER' . PHP_EOL);
+		fwrite(STDOUT, 'PLEASE PROVIDE OR LEAVE BLANK TO USE DEFAULT' . PHP_EOL);
+		$min = trim(fgets(STDIN));
+	}
+	if ($min === '') {
+		$min = 1;
+	} else {
+		if ((int) $min != (double) $min) {
+			fwrite(STDOUT, 'MIN VALUE FLOAT ACCEPTED -- ROUNDING DOWN' . PHP_EOL);
+		}
+		$min = (int) $min;
+	}
+} else {
+	$min = 1;
+}
+
+if ($argc > 2) {
+	$max = $argv[2];
+	while (!is_numeric($max) and $max !== '') {
+		fwrite(STDOUT, PHP_EOL . 'MAX VALUE ERROR -- NEED NUMBER' . PHP_EOL);
+		fwrite(STDOUT, 'PLEASE PROVIDE OR LEAVE BLANK TO USE DEFAULT' . PHP_EOL);
+		$max = trim(fgets(STDIN));
+	}
+	if ($max === '') {
+		$max = $min + 99;
+	} else {
+		if ((int) $max != (double) $max) {
+			fwrite(STDOUT, 'MAX VALUE FLOAT ACCEPTED -- ROUNDING DOWN' . PHP_EOL);
+		}
+		$max = (int) $max;
+	}
+} else {
+	$max = 100;
+}
+
 fwrite(STDOUT, PHP_EOL . "I'M THINKING..." . PHP_EOL);
 
-$min = $argc > 1 ? (int) $argv[1] : 1;
-$max = $argc > 2 ? (int) $argv[2] : $min + 99;
 $number = mt_rand($min, $max);
 $maxGuesses = (int) log(($max - $min + 1), 2);
 
