@@ -27,3 +27,5 @@ if ($guessesTaken < 6) {
 	fwrite(STDOUT, 'SORRY. NO MORE GUESSES.' . PHP_EOL);
 	fwrite(STDOUT, "NUMBER WAS $number." . PHP_EOL);
 }
+
+exit(0);
